@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import ReactGA from "react-ga4"; // Add this import
+import Preloader from "../src/components/Pre";
+import React, { useState, useEffect } from "react";
 import Preloader from "../src/components/Pre";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home/Home";
@@ -17,6 +20,9 @@ import "./style.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// Initialize GA4 (add this after imports)
+ReactGA.initialize("G-P61EHD3CY3"); // Replace with your ID
+
 function App() {
   const [load, upadateLoad] = useState(true);
 
@@ -24,6 +30,9 @@ function App() {
     const timer = setTimeout(() => {
       upadateLoad(false);
     }, 1200);
+
+    // Add GA pageview (new)
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
 
     return () => clearTimeout(timer);
   }, []);
