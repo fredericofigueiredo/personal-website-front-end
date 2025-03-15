@@ -32,7 +32,7 @@ jobs:
           aws-region: eu-central-1 # or your region
 
       - name: Deploy to S3
-        run: aws s3 sync build/ s3://frederico-personal-website --delete
+        run: aws s3 sync build/ s3://fred-website-bucket --delete
 
       - name: Invalidate CloudFront
         run: |
