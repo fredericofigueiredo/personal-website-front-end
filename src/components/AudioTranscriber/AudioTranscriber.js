@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
+import Particle from "../Particle";  // Add this import
 
 // Configure AWS
 AWS.config.region = 'eu-central-1'; // your region
@@ -92,17 +93,23 @@ function AudioTranscriber() {
     
 
     return (
-        <Container fluid className="project-section">
+        <div className="project-section"style={{ 
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column"
+          }}>
+            <Particle />
+        <Container fluid className="project-section" style={{ flex: 1 }}>
             <Container>
                 <h1 className="project-heading">
                     Audio <strong className="purple">Transcriber </strong>
                 </h1>
-                <p>Upload your audio file and get insights</p>
+                {/* <p style={{ color: "white" }}>Upload your audio file and get insights</p> */}
                 <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
                     <Col md={8} className="project-card">
                         <Form onSubmit={handleSubmit}>
                             <Form.Group>
-                                <Form.Label>Upload Audio File</Form.Label>
+                                <Form.Label style={{ color: "white" }}>Upload Audio File</Form.Label>
                                 <Form.Control 
                                     type="file" 
                                     onChange={handleFileChange} 
@@ -121,66 +128,67 @@ function AudioTranscriber() {
                         </Form>
                         {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
                         {results && (
-    <div className="results mt-4 p-4" style={{ 
-        backgroundColor: '#f8f9fa', 
-        borderRadius: '8px',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-    }}>
-        <h3 className="mb-4">Analysis Results</h3>
-        
-        {/* Sentiment Section */}
-        <div className="mb-4">
-            <h5 className="purple">Overall Sentiment</h5>
-            <div className="d-flex align-items-center">
-                <span className="badge bg-primary" style={{ fontSize: '1rem' }}>
-                    {results.sentiment}
-                </span>
-            </div>
-        </div>
+                            <div className="results mt-4 p-4" style={{ 
+                                backgroundColor: '#f8f9fa', 
+                                borderRadius: '8px',
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                            }}>
+                                <h3 className="mb-4">Analysis Results</h3>
+                                
+                                {/* Sentiment Section */}
+                                <div className="mb-4">
+                                    <h5 className="purple">Overall Sentiment</h5>
+                                    <div className="d-flex align-items-center">
+                                        <span className="badge bg-primary" style={{ fontSize: '1rem' }}>
+                                            {results.sentiment}
+                                        </span>
+                                    </div>
+                                </div>
 
-        {/* Key Phrases Section */}
-        <div className="mb-4">
-            <h5 className="purple">Key Phrases</h5>
-            <div className="d-flex flex-wrap gap-2">
-                {results.key_phrases.map((phrase, index) => (
-                    <span key={index} className="badge bg-secondary" 
-                        style={{ 
-                            fontSize: '0.9rem',
-                            padding: '8px 12px',
-                            margin: '4px'
-                        }}>
-                        {phrase}
-                    </span>
-                ))}
-            </div>
-        </div>
+                                {/* Key Phrases Section */}
+                                <div className="mb-4">
+                                    <h5 className="purple">Key Phrases</h5>
+                                    <div className="d-flex flex-wrap gap-2">
+                                        {results.key_phrases.map((phrase, index) => (
+                                            <span key={index} className="badge bg-secondary" 
+                                                style={{ 
+                                                    fontSize: '0.9rem',
+                                                    padding: '8px 12px',
+                                                    margin: '4px'
+                                                }}>
+                                                {phrase}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
 
-        {/* Transcript Section */}
-        <div>
-            <h5 className="purple">Transcript</h5>
-            <div style={{ 
-                backgroundColor: 'white',
-                padding: '15px',
-                borderRadius: '6px',
-                border: '1px solid #dee2e6',
-                maxHeight: '300px',
-                overflowY: 'auto'
-            }}>
-                <p style={{ 
-                    whiteSpace: 'pre-wrap',
-                    lineHeight: '1.6'
-                }}>
-                    {results.transcript}
-                </p>
-            </div>
-        </div>
-    </div>
-)}
-
+                                {/* Transcript Section */}
+                                <div>
+                                    <h5 className="purple">Transcript</h5>
+                                    <div style={{ 
+                                        backgroundColor: 'white',
+                                        padding: '15px',
+                                        borderRadius: '6px',
+                                        border: '1px solid #dee2e6',
+                                        maxHeight: '300px',
+                                        overflowY: 'auto'
+                                    }}>
+                                        <p style={{ 
+                                            whiteSpace: 'pre-wrap',
+                                            lineHeight: '1.6'
+                                        }}>
+                                            {results.transcript}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </Col>
                 </Row>
             </Container>
         </Container>
+    <div style={{ paddingBottom: "70px" }} />
+    </div>
     );
 }
 
