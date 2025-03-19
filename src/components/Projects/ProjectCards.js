@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { CgWebsite } from "react-icons/cg";
 import { BsGithub } from "react-icons/bs";
+import { Link } from "react-router-dom";  // Add this line
 
 function ProjectCards(props) {
   return (
@@ -23,15 +24,15 @@ function ProjectCards(props) {
         {/* If the component contains Demo link and if it's not a Blog then, it will render the below component  */}
 
         {!props.isBlog && props.demoLink && (
-          <Button
-            variant="primary"
-            href={props.demoLink}
-            target="_blank"
-            style={{ marginLeft: "10px" }}
-          >
-            <CgWebsite /> &nbsp;
-            {"Demo"}
-          </Button>
+          <Link to={props.demoLink}>
+            <Button
+              variant="primary"
+              style={{ marginLeft: "10px" }}
+            >
+              <CgWebsite /> &nbsp;
+              {"Try it"}
+            </Button>
+          </Link>
         )}
       </Card.Body>
     </Card>
